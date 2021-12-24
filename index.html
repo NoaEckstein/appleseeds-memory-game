@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="header">
-        <div class="bestTime">Best time:
-            <a class="bestscore"></a> seconds</div>
-    
-        <div id="startOver"> <button type="button" onclick="reset()">New Game</button></div>
+        <div class="time">Timer:
+            <span class="timer"></span><span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>:<span id="millisecond">000</span></div>
+        <div>Missed:<span class="mistakes">0</span></div>
+        <div class="start-over"> <button type="button" onclick="reset()">New Game</button></div>
     </div>
     <div class="board">
         <div class="card" data-card="1" onclick="cardClicked(this)">
@@ -62,7 +62,11 @@
             <img class="front" src="img/cards/6.png">
             <img class="back" src="img/cards/back.png">
         </div>
-
+        <!-- overlay -->
+        <div class='overlay' onclick='hideOverlay()'>
+            <div class='overlay-header'>“You won!”</div>
+            <div class="start-over"> <button type="button" onclick="reset(this)">New Game</button></div>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
