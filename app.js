@@ -1,9 +1,8 @@
-"use strict";
+'use strict';
 
 //Global variables - they stay alive and reflect the state of the game 
 let elPreviousCard = null;
 let flippedCouplesCount = 0;
-// let startTime = 0;
 let TOTAL_COUPLES_COUNT = 6;
 let hour = 0;
 let minute = 0;
@@ -11,25 +10,22 @@ let second = 0;
 let millisecond = 0;
 let cron;
 let missMatchCounter = 0;
+let cardsArray = [1,2,3,4,5,6,1,2,3,4,5,6];
 
 function cardClicked(elCard) {
     showReplayBtn('start-over');
     start();// Clock starts after user clicks the first card
-    // if (startTime === 0) {// Clock starts after user clicks the first card
-    //     startTime = Date.now();
-    //     console.log(startTime);
-    // }
-
+  
     if (elCard.classList.contains('flipped')) {// If the user clicked an already flipped card - do nothing and return from the function
         return;
     }
 
-    elCard.classList.add('flipped');// Flip it
+    elCard.classList.add('flipped');// Flip card
 
     if (elPreviousCard === null) {// This is a first card, only keep it in the global variable
         elPreviousCard = elCard;
     } else {
-        let card1 = elPreviousCard.getAttribute('data-card');// get the data-card attribute's value from both cards
+        let card1 = elPreviousCard.getAttribute('data-card');// Get the data-card attribute's value from both cards
         let card2 = elCard.getAttribute('data-card');
 
         if (card1 !== card2) {// No match, schedule to flip them back in 1 second
@@ -44,26 +40,20 @@ function cardClicked(elCard) {
             }, 1000)
 
         } else {
-            flippedCouplesCount++;// a match
+            flippedCouplesCount++;//Matching cards
             elPreviousCard = null;
 
             if (TOTAL_COUPLES_COUNT === flippedCouplesCount) {// All cards flipped
-                pause();//clock pause
+                pause();//Pause clock
                 showReplayBtn('start-over');  
                 showOverlay();
-                // let endTime = Date.now();
-                // let currentGameDurationCal = endTime - startTime;
-                // let currentGameDurationInt = parseInt(currentGameDurationCal);
-                // document.querySelector(".bestscore").innerHTML = `Score: ${currentGameDurationInt}`; //Display Score
             }
-
-
         }
 
     }
 
 }
-
+//----------------------------------- helper functions -----------------------------
 function addMissed(){
     missMatchCounter ++;
     document.querySelector('.mistakes').innerText = missMatchCounter;
@@ -84,26 +74,16 @@ function hideReplayBtn(id){
 }
 
 function showOverlay() {
-    document.querySelector('.overlay').style.display = 'block';
+    document.querySelector('.overlay').style.visibility = 'visible';
   }
   
   function hideOverlay() {
-    document.querySelector('.overlay').style.display = 'none';
+    document.querySelector('.overlay').style.visibility = 'hidden';
   }
-// function toggle_visibility(id) {
-//     let e = document.getElementById(id);
-//     if (e.style.visibility === 'visible') {
-//         e.style.visibility = 'hidden'
-//     } else {
-//         e.style.visibility = 'visible';
-//     }
-// }
 
-function reset(self) {
-    if(self){document.querySelector('.overlay').style.display = 'none'};
+function reset(self) { //starts the game over after selecting btn in overlay
+    if(self){document.querySelector('.overlay').style.visibility = 'hidden'};
     flippedCouplesCount = 0;
-    // startTime = 0;
-    // toggle_visibility('start-over');
     resetClock();
     clearMissed();
     let cardElements = document.querySelectorAll('.card');// Unflip all cards
@@ -113,7 +93,7 @@ function reset(self) {
 }
 
 
-//Timer
+//------------------------------------ Timer ---------------------------------------------
 function start() {
   pause();
   cron = setInterval(() => { timer(); }, 10);
@@ -159,3 +139,48 @@ function timer() {
 function returnData(input) {
     return input > 10 ? input : `0${input}`
   }
+
+  
+  
+
+  // function shuffleArray(array) {
+  //     let currentIndex = array.length,  randomIndex;
+    
+  //     while (currentIndex != 0) {// While there remain elements to shuffle...
+    
+  //       randomIndex = Math.floor(Math.random() * currentIndex);// Pick a remaining element...
+  //       currentIndex--;
+    
+  //       [array[currentIndex], array[randomIndex]] = [ // And swap it with the current element.
+  //         array[randomIndex], array[currentIndex]];
+  //     }
+    
+  //     return array;
+  //   }
+  
+  //   function createBoard(){
+  //     let shuffledCardsArray = shuffleArray(cardsArray);
+  //     let boardElement = document.querySelector('.board');
+  //     shuffledCardsArray.map((cardNo)=>{
+  //         let cardElement = document.createElement('div');//create card element
+  //         let backCard = document.createElement('img');//create back card img
+  //         let frontCard = document.createElement('img');//create front card img
+          
+  //         boardElement.appendChild(cardElement);//add card to board
+  //         cardElement.appendChild(backCard);
+  //         cardElement.appendChild(frontCard);
+
+  //         cardElement.classList.add('card');
+  //         backCard.classList.add('back');
+  //         frontCard.classList.add('front');
+
+  //         cardElement.dataset.card = cardNo;
+  //         cardElement.addEventListener('click',cardClicked.bind(cardElement),false);
+  //         backCard.setAttribute('src','img/cards/back.png');
+  //         frontCard.setAttribute('src',`img/cards/${cardNo}.png`);
+
+
+  //       })
+  //       console.log('boardElement',boardElement);
+  //   }
+  

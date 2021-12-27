@@ -13,7 +13,7 @@
         <div>Missed:<span class="mistakes">0</span></div>
         <div class="start-over"> <button type="button" onclick="reset()">New Game</button></div>
     </div>
-    <div class="board">
+    <div class="board"> 
         <div class="card" data-card="1" onclick="cardClicked(this)">
             <img class="front" src="img/cards/1.png">
             <img class="back" src="img/cards/back.png">
@@ -61,13 +61,16 @@
         <div class="card" data-card="6" onclick="cardClicked(this)">
             <img class="front" src="img/cards/6.png">
             <img class="back" src="img/cards/back.png">
-        </div>
-        <!-- overlay -->
-        <div class='overlay' onclick='hideOverlay()'>
-            <div class='overlay-header'>“You won!”</div>
-            <div class="start-over"> <button type="button" onclick="reset(this)">New Game</button></div>
         </div>
     </div>
+       <!-- overlay -->
+    <div class='overlay'>
+        <div class='overlay-header'><h1>You won!</h1></div>
+        <div class="start-over"> <button type="button" onclick="reset(this)">New Game</button></div>
+        
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tiviyc3p.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+    </div>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
